@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  recipe_app:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DEBUG: 'True'
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
