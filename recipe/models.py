@@ -20,6 +20,11 @@ MEASUREMENT_CHOICES = (
     ('pt', _('pint')),
 )
 
+MEASUREMENT_TYPE_CHOICES = (
+    ('v', _('Volume'),),
+    ('w', _('Weight')),
+)
+
 
 class TimeTrackedModel(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
@@ -45,10 +50,15 @@ class RecipeStep(TimeTrackedModel):
     order = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('-order', )
+
 
 class Ingredient(TimeTrackedModel):
     uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=300)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    # The goal is to only store as g or ml
     unit = models.CharField(max_length=200, choices=MEASUREMENT_CHOICES)
+    unit_type = models.CharField(max_length=200, choices=MEASUREMENT_TYPE_CHOICES)
