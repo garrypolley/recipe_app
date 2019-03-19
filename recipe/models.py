@@ -51,7 +51,7 @@ class RecipeStep(TimeTrackedModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('-order', )
+        ordering = ('order', )
 
 
 class Ingredient(TimeTrackedModel):
@@ -62,3 +62,6 @@ class Ingredient(TimeTrackedModel):
     # The goal is to only store as g or ml
     unit = models.CharField(max_length=200, choices=MEASUREMENT_CHOICES)
     unit_type = models.CharField(max_length=200, choices=MEASUREMENT_TYPE_CHOICES)
+
+    class Meta:
+        ordering = ('name', )
