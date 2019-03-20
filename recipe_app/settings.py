@@ -138,6 +138,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+DEFAULT_FILE_STORAGE = 'recipe_app.storage_backends.LocalMediaStorage'
 
 # Digital Ocean storages junk
 
