@@ -10,3 +10,8 @@ open up the running version of the site for others to host their recipes too.
 1. On windows wait for popup to "share" the drive
 1. `docker-compose up`
 1. App running on http://localhost:8000
+
+## Building the app
+
+1. `docker build . -t garrypolley/recipe-app:1.1.1`
+1. `docker push garrypolley/recipe-app:1.1.1`

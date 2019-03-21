@@ -18,9 +18,10 @@ from django.conf import settings
 from django.urls import path
 from django.conf.urls.static import static
 
-from recipe.views import RecipeListView
+from recipe.views import RecipeListView, RecipeDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('recipe/', RecipeListView.as_view(), name="recipe_list"),
+    path('', RecipeListView.as_view(), name="recipe_list"),
+    path('<pk>/', RecipeDetailView.as_view(), name="recipe_detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

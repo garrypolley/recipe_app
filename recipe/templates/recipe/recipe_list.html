@@ -4,40 +4,35 @@
 
 
 {% block 'body' %}
-<h1>Recipes</h1>
+<div class="row text-center">
+    <div class="col">
+        <h1>Recipes</h1>
+        <p>
+            Checkout the recipes below. Eventually you'll be able to favorite and
+            maybe one day enter your own recipes.
+        </p>
+    </div>
+</div>
 
- {% for recipe in object_list %}
-    <div class="row justify-content-center">
-    <div class="card bg-primary col-sm-12 col-md-8 pb-3">
-        <h2 class="card-header text-white pl-0">{{recipe.name}}</h2>
-        {% if recipe.final_product_photo %}
-            <img class="align-self-center card-img-top img-thumbnail rounded" src="{{recipe.final_product_photo.url}}" alt="Final {{ recipe.name }}">
-        {% endif %}
-        <div class="card-text">
-        <div class="row ml-0 mr-0 mt-2">
-            <ul class="list-group col-md-4 col-sm-12">
-                {% for ingredient in recipe.ingredient_set.all %}
-                    <li class="list-group-item">
-                        {{ingredient.name}} -- {{ingredient.amount}}({{ingredient.unit}})
-                    </li>
-                {% endfor %}
-            </ul>
-            <div class="col">
-            {% for step in recipe.recipestep_set.all %}
-                <div class="row align-items-center">
-                    <div class="col-2 text-center">
-                        <p class="bg-white text-black h2 m-0 p-0" style="height: 42px; width: 42px; border-radius: 50%;">{{ forloop.counter }}</p>
-                    </div>
-                    <p class="text-white col m-0">
-                        {{step.description}}
-                    </p>
-                </div>
-            {% endfor %}
+<div class="card-deck row bg-white p-3 pt-4 pb-4 rounded">
+{% for recipe in object_list %}  
+    <div class="col-md-4 col-12">
+        <div class="card m-0">
+            {% if recipe.final_product_photo %}
+            <a href="{% url 'recipe_detail' recipe.uuid %}">
+            <img class="card-img-top img-thumbnail rounded" src="{{recipe.final_product_photo.url}}" alt="Final {{ recipe.name }}">
+            </a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.name }}</h5>
+                <p class="card-text">{{recipe.description}}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'recipe_detail' recipe.uuid %}" class="btn btn-primary">View</a>
             </div>
         </div>
-        </div>
     </div>
-    </div>
- {% endfor %}
+{% endfor %}
+</div>
 
 {% endblock 'body' %}

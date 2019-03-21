@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block 'body' %}
+
+<div class="row justify-content-center mt-3">
+    <div class="card bg-primary col-sm-12 col-md-8 pb-3">
+        <h2 class="card-header text-white pl-0">{{recipe.name}}</h2>
+        {% if recipe.final_product_photo %}
+            <img class="align-self-center card-img-top img-thumbnail rounded" src="{{recipe.final_product_photo.url}}" alt="Final {{ recipe.name }}">
+        {% endif %}
+        <div class="card-text">
+        <div class="row ml-0 mr-0 mt-2">
+            <ul class="list-group col-md-4 col-sm-12">
+                {% for ingredient in recipe.ingredient_set.all %}
+                    <li class="list-group-item">
+                        {{ingredient.name}} -- {{ingredient.amount}}({{ingredient.unit}})
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="col">
+            {% for step in recipe.recipestep_set.all %}
+                <div class="row align-items-center mb-2">
+                    <div class="col-2 text-center">
+                        <p class="bg-white text-black h2 m-0 p-0" style="height: 42px; width: 42px; border-radius: 50%;">{{ forloop.counter }}</p>
+                    </div>
+                    <p class="text-white col m-0">
+                        {{step.description}}
+                    </p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock 'body' %}
