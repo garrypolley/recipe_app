@@ -143,3 +143,5 @@ dmypy.json
 # Project files
 media/
 staticfiles
+secret.secret.txt
+existing_data.json

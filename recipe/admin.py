@@ -16,3 +16,4 @@ class RecipeStepsAdmin(admin.StackedInline):
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
    inlines = [IngredientAdmin, RecipeStepsAdmin]
+   list_display = ['name', 'uuid', 'description']

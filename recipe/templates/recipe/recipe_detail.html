@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load ingredient_tags %}
+
 {% block 'body' %}
 
 <div class="row justify-content-center mt-3">
@@ -10,24 +12,39 @@
         {% endif %}
         <div class="card-text">
         <div class="row ml-0 mr-0 mt-2">
-            <ul class="list-group col-md-4 col-sm-12">
-                {% for ingredient in recipe.ingredient_set.all %}
-                    <li class="list-group-item">
-                        {{ingredient.name}} -- {{ingredient.amount}}({{ingredient.unit}})
-                    </li>
-                {% endfor %}
-            </ul>
+            <div class="col-md-4 col-sm-12 p-0 pr-1">
+                <ul class="list-group sticky-top">
+                    {% for ingredient in recipe.ingredient_set.all %}
+                        <li class="list-group-item">
+                            {{ingredient.name}} -- {{ingredient.amount}}({{ingredient.unit}})
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
             <div class="col">
+            <form method="GET">
             {% for step in recipe.recipestep_set.all %}
-                <div class="row align-items-center mb-2">
-                    <div class="col-2 text-center">
-                        <p class="bg-white text-black h2 m-0 p-0" style="height: 42px; width: 42px; border-radius: 50%;">{{ forloop.counter }}</p>
+                <input 
+                    class="d-none"
+                    name="rst" 
+                    id="recipe_steps_{{step.order}}" 
+                    type="checkbox" 
+                    value="{{step.order}}"
+                    {% if step.order in chosen_steps  %}checked{% endif %}
+                    cat="meow"
+                    onChange="this.form.action='#an_{{step.order}}';  this.form.submit();">
+                <label for="recipe_steps_{{step.order}}" class="row align-items-center">
+                    <div class="col-2 text-center" id="an_{{step.order}}">
+                        {% format_step_number chosen_steps step forloop.counter %}
                     </div>
-                    <p class="text-white col m-0">
-                        {{step.description}}
-                    </p>
-                </div>
+                    <div class="col m-0">
+                    {% format_step_description chosen_steps step forloop.counter %}
+                    </div>
+                </label>
+                <hr />
             {% endfor %}
+            <button type="button" class="btn btn-primary" onClick="window.location = window.location.href.split('?')[0];">Reset</button>
+            </form>
             </div>
         </div>
         </div>

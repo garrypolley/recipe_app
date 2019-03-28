@@ -162,5 +162,6 @@ if os.getenv('DO_STATIC'):
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'{MEDIA_URL}/{PUBLIC_MEDIA_LOCATION}/'
     AWS_PUBLIC_MEDIA_LOCATION = f'{AWS_LOCATION}/{PUBLIC_MEDIA_LOCATION}'
+    AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN', '')
     DEFAULT_FILE_STORAGE = 'recipe_app.storage_backends.MediaStorage'
 
