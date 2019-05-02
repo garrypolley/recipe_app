@@ -9,7 +9,7 @@ MEASUREMENT_CHOICES = (
     ('g', _('gram')),
     ('mg', _('milligram')),
     ('l', _('liter')),
-    ('ml', _('mililiter')),
+    ('ml', _('milliliter')),
     ('oz', _('ounce')),
     ('floz', _('fluid oz')),
     ('cup', _('cup')),
@@ -18,11 +18,6 @@ MEASUREMENT_CHOICES = (
     ('tbs', _('tablespoon')),
     ('qrt', _('quart')),
     ('pt', _('pint')),
-)
-
-MEASUREMENT_TYPE_CHOICES = (
-    ('v', _('Volume'),),
-    ('w', _('Weight')),
 )
 
 
@@ -61,7 +56,6 @@ class Ingredient(TimeTrackedModel):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     # The goal is to only store as g or ml
     unit = models.CharField(max_length=200, choices=MEASUREMENT_CHOICES)
-    unit_type = models.CharField(max_length=200, choices=MEASUREMENT_TYPE_CHOICES)
 
     class Meta:
         ordering = ('name', )

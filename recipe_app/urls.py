@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from recipe.views import RecipeListView, RecipeDetailView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(f'{settings.ADMIN_URL}', admin.site.urls),
     path('', RecipeListView.as_view(), name="recipe_list"),
     path('<pk>/', RecipeDetailView.as_view(), name="recipe_detail"),
 ]

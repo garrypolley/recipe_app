@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
 {% load ingredient_tags %}
+{% load static %}
 
 {% block 'body' %}
 
 <div class="row justify-content-center mt-3">
     <div class="card bg-primary col-sm-12 col-md-8 pb-3">
-        <h2 class="card-header text-white pl-0">{{recipe.name}}</h2>
+        <h2 class="card-header text-white pl-0">{{recipe.name}} 
+            <button 
+                class="btn btn-light p-0" 
+                data-clipboard-text="{{ site_url }}{% url 'recipe_detail' pk=recipe.uuid %}" 
+                data-clipboard-action="copy"
+                data-toggle="tooltip" 
+                data-placement="right" 
+                title="Click To Copy URL">
+                    <img src="{% static 'share_icon.svg' %}" height="25px" width="25px" />
+            </button>
+        </h2>
         {% if recipe.final_product_photo %}
             <img class="align-self-center card-img-top img-thumbnail rounded" src="{{recipe.final_product_photo.url}}" alt="Final {{ recipe.name }}">
         {% endif %}
@@ -52,3 +63,8 @@
 </div>
 
 {% endblock 'body' %}
+
+{% block 'customjs' %}
+<script src="{% static 'clipboard.js' %}"></script>
+<script>new ClipboardJS('.btn');</script>
+{% endblock %}

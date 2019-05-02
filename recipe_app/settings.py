@@ -23,6 +23,8 @@ truthy_args = ['True', 'true', True]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', '_gh3d-as%rqd42y=^oj()ui6rdb9l6xwh1dh*v+(o1y+7qcj87')
+ADMIN_URL = os.getenv('ADMIN_URL', 'admin/')
+SITE_URL = os.getenv('SITE_URL', 'http://localhost:8000')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False) in truthy_args
